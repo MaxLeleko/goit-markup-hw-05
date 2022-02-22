@@ -15,8 +15,11 @@
   --svg-color: #afb1b8;
   --svg-bg-color: rgba(255, 255, 255, 0.1);
   --backdrop-color: rgba(0, 0, 0, 0.2);
-  --ttqb: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* --ttqb: 250ms cubic-bezier(0.4, 0, 0.2, 1); */
+  --tt: 250ms;
+  --cb: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 body {
   background-color: var(--main-light-color);
   color: var(--main-color);
@@ -81,6 +84,7 @@ img {
   position: absolute;
   left: 0;
   bottom: 0;
+  margin-bottom: -3px;
 
   display: block;
   width: 100%;
@@ -145,7 +149,7 @@ img {
 }
 
 .header-nav-link {
-  transition: color var(--ttqb);
+  transition: color var(--tt) var(--cb);
 }
 
 .header-nav .link:hover,
@@ -158,7 +162,7 @@ img {
 }
 
 .footer-link {
-  transition: color var(--ttqb);
+  transition: color var(--tt) var(--cb);
 }
 
 .footer {
@@ -199,7 +203,7 @@ img {
 }
 
 .header-contacts-link {
-  transition: color var(--ttqb);
+  transition: color var(--tt) var(--cb);
 
   display: flex;
   padding-top: 32px;
@@ -248,7 +252,7 @@ img {
 }
 
 .social-link {
-  transition: background-color var(--ttqb);
+  transition: background-color var(--tt) var(--cb);
 
   display: flex;
   align-items: center;
@@ -315,7 +319,7 @@ img {
 }
 
 .hero-btn {
-  transition: background-color var(--ttqb);
+  transition: background-color var(--tt) var(--cb);
 
   padding: 10px 32px;
   background-color: var(--logo-color);
@@ -414,26 +418,21 @@ img {
 }
 
 .wecan-description {
-  display: block;
-  padding-top: 27px;
-  padding-bottom: 27px;
-  width: 100%;
-  background-image: linear-gradient(
-    to top,
-    rgba(47, 48, 58, 0.8),
-    rgba(47, 48, 58, 0.8)
-  );
   position: absolute;
   bottom: 0;
   left: 0;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 100%;
   font-weight: 700;
   font-size: 14px;
   line-height: calc(16 / 14);
-  text-align: center;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--main-light-color);
+  background-color: rgba(47, 48, 58, 0.8);
 }
 
 /* wecan end */
@@ -495,7 +494,7 @@ img {
 }
 
 .team-social-link {
-  transition: color var(--ttqb), background-color var(--ttqb);
+  transition: color var(--tt) var(--cb), background-color var(--tt) var(--cb);
 
   display: flex;
   border-radius: 50%;
@@ -547,7 +546,7 @@ img {
 }
 
 .clients-thumb {
-  transition: border var(--ttqb), color var(--ttqb);
+  transition: border var(--tt) var(--cb), color var(--tt) var(--cb);
 
   display: flex;
   justify-content: center;
@@ -604,11 +603,11 @@ img {
 }
 
 .portfolio-btn {
-  transition: color var(--ttqb), background-color var(--ttqb),
-    box-shadow var(--ttqb);
+  transition: color var(--tt) var(--cb), background-color var(--tt) var(--cb),
+    box-shadow var(--tt) var(--cb);
 
   color: var(--main-color);
-  background-color: var(--main-light-color);
+  background-color: var(--section-color);
   box-shadow: none;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -654,7 +653,7 @@ img {
 }
 
 .portfolio-card-item {
-  transition: box-shadow var(--ttqb);
+  transition: box-shadow var(--tt) var(--cb);
 
   margin-left: 30px;
   margin-top: 30px;
@@ -664,6 +663,14 @@ img {
 
 .portfolio-card-item:hover {
   cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.portfolio-link {
+  display: block;
+}
+
+.portfolio-link:focus {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -692,8 +699,8 @@ img {
   background-color: var(--logo-transparent-color);
   width: 100%;
   height: 100%;
-  transform: translateY(100%);
-  transition: transform var(--ttqb);
+  transform: translateY(101%);
+  transition: transform var(--tt) var(--cb);
 
   font-size: 18px;
   line-height: calc(28 / 18);
@@ -716,22 +723,32 @@ img {
   width: 100%;
   height: 100%;
   background-color: var(--backdrop-color);
+  transition: opacity var(--tt) var(--cb);
+}
+
+.backdrop.is-hidden {
+  pointer-events: none;
+  opacity: 0;
 }
 
 .modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1);
   opacity: 1;
-  scale: (1, 1);
-  animation: openScale 2000ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  transition: transform var(--tt) var(--cb);
 
   height: 581px;
   width: 528px;
   padding: 8px;
   border-radius: 4px;
   background-color: var(--main-light-color);
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0);
 }
 
 .close-btn {
@@ -745,7 +762,7 @@ img {
   justify-content: center;
   color: var(--header-logo-color);
 
-  transition: color var(--ttqb);
+  transition: color var(--tt) var(--cb);
 }
 
 .close-btn:hover {
@@ -755,28 +772,4 @@ img {
 .close-svg {
   fill: currentColor;
 }
-
-.backdrop.is-hidden {
-  pointer-events: none;
-  opacity: 0;
-  scale: (0, 0);
-}
-
-@keyframes openScale {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1, 1);
-  }
-}
-
 /* modal end */
-
-.modal p {
-  text-transform: uppercase;
-  font-size: 30px;
-}
